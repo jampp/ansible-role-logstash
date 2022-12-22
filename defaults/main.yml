@@ -58,6 +58,7 @@ logstash_config_jvm_defaults: |
   -XX:+DisableExplicitGC
   -Djava.awt.headless=true
   -Dfile.encoding=UTF-8
+  -Dlog4j.configurationFile={{logstash_conf_prefix}}/log4j2.properties
   -XX:+HeapDumpOnOutOfMemoryError
 
 logstash_config_jvm: "{{logstash_config_jvm_defaults}}"
