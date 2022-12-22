@@ -30,7 +30,7 @@
 - name: Log4j2 properties
   template:
     src:   etc/logstash/log4j2.properties.j2
-    dest:  "{{logstash_conf_dir}}/log4j2.properties"
+    dest:  "{{logstash_conf_prefix}}/log4j2.properties"
     owner: "root"
     group: "root"
     mode:  "0644"
