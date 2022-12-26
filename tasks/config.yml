@@ -18,6 +18,18 @@
     mode:  "0644"
   notify: logstash restart
 
+- name: Log4j2 properties
+  template:
+    src:   etc/logstash/log4j2.properties.j2
+    dest:  "{{logstash_conf_prefix}}/log4j2.properties"
+    owner: "root"
+    group: "root"
+    mode:  "0644"
+  notify: logstash restart
+  tags:
+    - logstash_config
+    - logstash_log4j2_properties
+
 - name: Logstash Input config
   template:
     src:   etc/logstash/conf.d/input.conf.j2
