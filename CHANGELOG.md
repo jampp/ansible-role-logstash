@@ -1,5 +1,12 @@
 # Ansible Logstash role Changelog
 
+## Unreleased: 2.0.0
+
+  * Make logstash user run daemon and be owner of all logstash related folders
+  * Delete old JVM configurations
+  * Logstash version: Bumped to 8.6.0
+  * Make minor styling fixes
+
 ## 2017-11-23: 1.2.0
 
   * Fixed issue that would make the role install the latest logstash version
