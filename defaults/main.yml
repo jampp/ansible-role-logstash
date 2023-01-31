@@ -3,14 +3,14 @@
 # Logstash version
 #  The package repository is build upon major and minor versions
 #
-logstash_version: 5.6.4
-logstash_version_repo: "{{logstash_version|regex_replace('^([0-9]+)\\..*$', '\\1')}}.x"
+logstash_version: 8.6.0
+logstash_version_repo: "{{ logstash_version|regex_replace('^([0-9]+)\\..*$', '\\1') }}.x"
 
 logstash_gpg_key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
 logstash_baseurl: "https://artifacts.elastic.co"
-logstash_repo_baseurl: "{{logstash_baseurl}}/packages/{{logstash_version_repo}}"
-logstash_package_baseurl: "{{logstash_baseurl}}/downloads/logstash"
+logstash_repo_baseurl: "{{ logstash_baseurl }}/packages/{{ logstash_version_repo }}"
+logstash_package_baseurl: "{{ logstash_baseurl }}/downloads/logstash"
 
 logstash_use_repo: true
 
@@ -29,7 +29,7 @@ logstash_group: logstash
 
 # User that will run the service
 #
-logstash_daemon_user: root
+logstash_daemon_user: "{{ logstash_owner }}"
 
 # Install dir (defined by the package)
 #  Changing this will have no effect, as this is just a way to
@@ -37,7 +37,7 @@ logstash_daemon_user: root
 #
 logstash_install_dir: /usr/share/logstash
 logstash_conf_prefix: /etc/logstash
-logstash_conf_dir:    "{{logstash_conf_prefix}}/conf.d"
+logstash_conf_dir:    "{{ logstash_conf_prefix }}/conf.d"
 logstash_data_dir:    /var/lib/logstash
 logstash_logs_dir:    /var/log/logstash
 
@@ -49,27 +49,27 @@ logstash_jvm_mem: 512m
 # Logstash JVM 
 #
 logstash_config_jvm_defaults: |
-  -Xms{{logstash_jvm_mem}}
-  -Xmx{{logstash_jvm_mem}}
-  -XX:+UseParNewGC
-  -XX:+UseConcMarkSweepGC
-  -XX:CMSInitiatingOccupancyFraction=75
-  -XX:+UseCMSInitiatingOccupancyOnly
+  -Xms{{ logstash_jvm_mem }}
+  -Xmx{{ logstash_jvm_mem }}
+  -XX:+UseG1GC
+  -XX:+ExitOnOutOfMemoryError
+  -XX:+HeapDumpOnOutOfMemoryError
+  -XX:HeapDumpPath=/var/lib/logstash
+  -XX:ErrorFile=/var/log/logstash/hs_err_pid%p.log
   -XX:+DisableExplicitGC
   -Djava.awt.headless=true
   -Dfile.encoding=UTF-8
-  -Dlog4j.configurationFile={{ logstash_conf_prefix }}/log4j2.properties
-  -XX:+HeapDumpOnOutOfMemoryError
+  -Dlog4j2.formatMsgNoLookups=true
 
-logstash_config_jvm: "{{logstash_config_jvm_defaults}}"
+logstash_config_jvm: "{{ logstash_config_jvm_defaults }}"
 
 # Logstash daemon config
 #
 #  logstash_config_daemon_defaults: defaults for daemon (logstash.yml)
 logstash_config_daemon_defaults:
-  path.data: "{{logstash_data_dir}}"
-  path.config: "{{logstash_conf_dir}}"
-  path.logs: "{{logstash_logs_dir}}"
+  path.data: "{{ logstash_data_dir }}"
+  path.config: "{{ logstash_conf_dir }}"
+  path.logs: "{{ logstash_logs_dir }}"
 
 #  logstash_config_daemon: dict where to specify additional daemon configs
 #  that will be merged through combine() with `logstash_config_daemon_defaults`

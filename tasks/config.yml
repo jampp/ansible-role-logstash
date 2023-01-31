@@ -4,7 +4,7 @@
   template:
     src:   etc/logstash/logstash.yml.j2
     dest:  "{{logstash_conf_prefix}}/logstash.yml"
-    owner: "root"
+    owner: "{{ logstash_owner }}"
     group: "root"
     mode:  "0644"
   notify: logstash restart
@@ -13,7 +13,7 @@
   template:
     src:   etc/logstash/jvm.options.j2
     dest:  "{{logstash_conf_prefix}}/jvm.options"
-    owner: "root"
+    owner: "{{ logstash_owner }}"
     group: "root"
     mode:  "0644"
   notify: logstash restart
@@ -22,7 +22,7 @@
   template:
     src:   etc/logstash/log4j2.properties.j2
     dest:  "{{logstash_conf_prefix}}/log4j2.properties"
-    owner: "root"
+    owner: "{{ logstash_owner }}"
     group: "root"
     mode:  "0644"
   notify: logstash restart
@@ -34,7 +34,7 @@
   template:
     src:   etc/logstash/conf.d/input.conf.j2
     dest:  "{{logstash_conf_dir}}/input.conf"
-    owner: "root"
+    owner: "{{ logstash_owner }}"
     group: "root"
     mode:  "0644"
   notify: logstash restart
@@ -46,7 +46,7 @@
   template:
     src:   etc/logstash/conf.d/filters.conf.j2
     dest:  "{{logstash_conf_dir}}/filters.conf"
-    owner: "root"
+    owner: "{{ logstash_owner }}"
     group: "root"
     mode:  "0644"
   notify: logstash restart
@@ -58,7 +58,7 @@
   template:
     src:  etc/logstash/conf.d/output.conf.j2
     dest: "{{logstash_conf_dir}}/output.conf"
-    owner: "root"
+    owner: "{{ logstash_owner }}"
     group: "root"
     mode: "0644"
   notify: logstash restart
