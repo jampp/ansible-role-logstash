@@ -2,7 +2,7 @@
 
 ## Unreleased: 2.0.0
 
-  * Make logstash user run daemon and be owner of all logstash related folders
+  * Make logstash user run daemon
   * Delete old JVM configurations
   * Logstash version: Bumped to 8.6.0
   * Make minor styling fixes
