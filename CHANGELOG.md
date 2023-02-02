@@ -1,6 +1,6 @@
 # Ansible Logstash role Changelog
 
-## Unreleased: 2.0.0
+## 2023-02-02: 2.0.0
 
   * Make logstash user run daemon
   * Delete old JVM configurations
