@@ -1,5 +1,9 @@
 # Ansible Logstash role Changelog
 
+## 2023-02-24: 2.1.0
+
+  * Load parsing configs from git
+
 ## 2023-02-02: 2.0.0
 
   * Make logstash user run daemon

@@ -90,6 +90,11 @@ logstash_inputs:  ''
 logstash_filters: ''
 logstash_outputs: ''
 
+logstash_config_from_git: false
+logstash_config_git_repo: ''
+logstash_config_git_version: main
+logstash_config_git_path: ''
+
 # List of plugins to be installed
 #
 logstash_plugins:
