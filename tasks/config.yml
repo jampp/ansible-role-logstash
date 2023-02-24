@@ -30,40 +30,74 @@
     - logstash_config
     - logstash_log4j2_properties
 
-- name: Logstash Input config
-  template:
-    src:   etc/logstash/conf.d/input.conf.j2
-    dest:  "{{logstash_conf_dir}}/input.conf"
-    owner: "root"
-    group: "root"
-    mode:  "0644"
-  notify: logstash restart
+- block:
+    - name: Logstash Input config
+      template:
+        src: etc/logstash/conf.d/input.conf.j2
+        dest: "{{logstash_conf_dir}}/input.conf"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+      notify: logstash restart
+      tags:
+        - logstash_input
+
+    - name: Logstash Filter config
+      template:
+        src: etc/logstash/conf.d/filters.conf.j2
+        dest: "{{logstash_conf_dir}}/filters.conf"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+      notify: logstash restart
+      tags:
+        - logstash_filter
+
+    - name: Logstash Output config
+      template:
+        src: etc/logstash/conf.d/output.conf.j2
+        dest: "{{logstash_conf_dir}}/output.conf"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+      notify: logstash restart
+      tags:
+        - logstash_output
+  when: not logstash_config_from_git
+  tags:
+    - logstash_config
+
+- block:
+    - name: Clone config repository
+      git:
+        repo: "{{ logstash_config_git_repo }}"
+        version: "{{ logstash_config_git_version }}"
+        dest: ./.repo
+        clone: yes
+        update: yes
+      become: false
+      delegate_to: localhost
+
+    - name: Copy pipeline configuration
+      copy:
+        src: "./.repo/{{ logstash_config_git_path }}/"
+        dest: "{{ logstash_conf_dir }}"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+      notify: logstash restart
+
+    - name: Delete local repository
+      file:
+        path: ./.repo
+        state: absent
+      become: false
+      delegate_to: localhost
+  when: logstash_config_from_git
   tags:
     - logstash_config
     - logstash_input
-
-- name: Logstash Filter config
-  template:
-    src:   etc/logstash/conf.d/filters.conf.j2
-    dest:  "{{logstash_conf_dir}}/filters.conf"
-    owner: "root"
-    group: "root"
-    mode:  "0644"
-  notify: logstash restart
-  tags:
-    - logstash_config
-    - logstash_filter
-
-- name: Logstash Output config
-  template:
-    src:  etc/logstash/conf.d/output.conf.j2
-    dest: "{{logstash_conf_dir}}/output.conf"
-    owner: "root"
-    group: "root"
-    mode: "0644"
-  notify: logstash restart
-  tags:
-    - logstash_config
+    - logstash_filters
     - logstash_output
 
 # vi:ts=2:sw=2:et:ft=yaml
