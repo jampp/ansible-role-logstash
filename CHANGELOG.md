@@ -1,5 +1,9 @@
 # Ansible Logstash role Changelog
 
+## 2023-02-28: 2.1.1
+
+  * Add support for variables in templates
+
 ## 2023-02-24: 2.1.0
 
   * Load parsing configs from git
