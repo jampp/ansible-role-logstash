@@ -79,12 +79,13 @@
       delegate_to: localhost
 
     - name: Copy pipeline configuration
-      copy:
-        src: "./.repo/{{ logstash_config_git_path }}/"
+      template:
+        src: "{{ item }}"
         dest: "{{ logstash_conf_dir }}"
         owner: "root"
         group: "root"
         mode: "0644"
+      with_fileglob: "./.repo/{{ logstash_config_git_path }}/*.conf"
       notify: logstash restart
 
     - name: Delete local repository

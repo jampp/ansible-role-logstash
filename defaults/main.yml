@@ -94,6 +94,7 @@ logstash_config_from_git: false
 logstash_config_git_repo: ''
 logstash_config_git_version: main
 logstash_config_git_path: ''
+logstash_config_git_vars: {}
 
 # List of plugins to be installed
 #
