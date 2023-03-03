@@ -76,6 +76,7 @@
         clone: yes
         update: yes
       become: false
+      run_once: true
       delegate_to: localhost
 
     - name: Copy pipeline configuration
@@ -93,6 +94,7 @@
         path: ./.repo
         state: absent
       become: false
+      run_once: true
       delegate_to: localhost
   when: logstash_config_from_git
   tags:

@@ -1,5 +1,9 @@
 # Ansible Logstash role Changelog
 
+## 2023-03-03: 2.1.2
+
+  * Prevent cloning and deleting config repository multiple times
+
 ## 2023-02-28: 2.1.1
 
   * Add support for variables in templates
