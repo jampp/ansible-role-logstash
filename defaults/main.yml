@@ -91,6 +91,7 @@ logstash_filters: ''
 logstash_outputs: ''
 
 logstash_config_from_git: false
+logstash_skip_clone_repo: false
 logstash_config_git_repo: ''
 logstash_config_git_version: main
 logstash_config_git_path: ''

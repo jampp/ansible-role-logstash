@@ -78,6 +78,7 @@
       become: false
       run_once: true
       delegate_to: localhost
+      when: not logstash_skip_clone_repo
 
     - name: Copy pipeline configuration
       template:

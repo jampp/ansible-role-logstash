@@ -1,5 +1,9 @@
 # Ansible Logstash role Changelog
 
+## 2023-03-07: 2.1.3
+
+  * Add flag to skip clone repository
+
 ## 2023-03-03: 2.1.2
 
   * Prevent cloning and deleting config repository multiple times
